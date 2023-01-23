@@ -39,11 +39,11 @@ public class ArtistController {
     @PostMapping(value = "/artist", consumes = "application/json", produces = "application/json")
     public ResponseEntity addArtist(@RequestBody Artist artist)
     {
-
         Boolean created = artistService.addArtist(artist);
         if(created){
             return new ResponseEntity<>(HttpStatus.CREATED) ;
         }
+        // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
         else{
             return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
         }
@@ -56,6 +56,7 @@ public class ArtistController {
         if(updated){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT) ;
         }
+        // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
         else{
             return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
         }
@@ -68,6 +69,7 @@ public class ArtistController {
         if(deleted){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT) ;
         }
+        // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
         else{
             return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
         }

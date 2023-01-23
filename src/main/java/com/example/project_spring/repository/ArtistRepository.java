@@ -17,6 +17,6 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer> {
     List<Artist> findByAlbumNameAndArtistName(@Param("album_name") String albumName, @Param("artist_name") String artistName);
     Optional<Artist> findById(Integer integer);
     Optional<Artist> findByName(String name);
-    boolean existsByName(String name);
+    Boolean existsByName(String name);
     List<Artist> findAll();
 }

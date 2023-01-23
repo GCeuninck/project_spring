@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class AlbumExceptionHandler {
+public class ApiExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<ApiError> handleException(Exception exc){
+    public ResponseEntity<ApiError> handleException(RuntimeException exc){
         ApiError error = new ApiError(HttpStatus.BAD_REQUEST, exc.getMessage(), exc);
         return new ResponseEntity<>(error, error.getStatus());
     }

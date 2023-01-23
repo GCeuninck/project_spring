@@ -33,59 +33,38 @@ public class ArtistService {
     }
 
     public Boolean addArtist(Artist artist){
-        Boolean created = false;
-        try{
+        if(!artistRepository.existsByName(artist.getName())){
+            artist.setId(0);
+            artistRepository.save(artist);
+        }
+        else{
+            throw new EntityExistsException("Artist already exists with name: " + artist.getName());
+        }
+        return true;
+    }
+
+    public Boolean updateArtist(Artist artist){
+        if(artistRepository.existsById(artist.getId())){
             if(!artistRepository.existsByName(artist.getName())){
-                artist.setId(0);
                 artistRepository.save(artist);
-                created = true;
             }
             else{
                 throw new EntityExistsException("Artist already exists with name: " + artist.getName());
             }
         }
-        catch (Exception exc){
-            created = false;
+        else{
+            throw new EntityNotFoundException("Artist Not Found with id: " + artist.getId());
         }
-        return created;
-    }
-
-    public Boolean updateArtist(Artist artist){
-        Boolean updated = false;
-        try{
-            if(artistRepository.existsById(artist.getId())){
-                if(!artistRepository.existsByName(artist.getName())){
-                    artistRepository.save(artist);
-                    updated = true;
-                }
-                else{
-                    throw new EntityExistsException("Artist already exists with name: " + artist.getName());
-                }
-            }
-            else{
-                throw new EntityNotFoundException("Artist Not Found with id: " + artist.getId());
-            }
-        }
-        catch (Exception exc){
-            updated = false;
-        }
-        return updated;
+        return true;
     }
 
     public Boolean deleteArtist(Integer id){
-        Boolean deleted = false;
-        try{
-            if(artistRepository.existsById(id)){
-                artistRepository.deleteById(id);
-                deleted = true;
-            }
-            else{
-                throw new EntityNotFoundException("Artist Not Found with id: " + id);
-            }
+        if(artistRepository.existsById(id)){
+            artistRepository.deleteById(id);
         }
-        catch (Exception exc){
-            deleted = false;
+        else{
+            throw new EntityNotFoundException("Artist Not Found with id: " + id);
         }
-        return deleted;
+        return true;
     }
 }

@@ -25,7 +25,6 @@ public class AlbumService {
     public Boolean addAlbum(Album album){
         Boolean created = false;
         try{
-
             albumRepository.save(album);
             created = true;
         }
