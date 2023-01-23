@@ -43,9 +43,10 @@ public class ArtistService {
         return true;
     }
 
-    public Boolean updateArtist(Artist artist){
-        if(artistRepository.existsById(artist.getId())){
+    public Boolean updateArtist(Integer id, Artist artist){
+        if(artistRepository.existsById(id)){
             if(!artistRepository.existsByName(artist.getName())){
+                artist.setId(id);
                 artistRepository.save(artist);
             }
             else{
@@ -53,7 +54,7 @@ public class ArtistService {
             }
         }
         else{
-            throw new EntityNotFoundException("Artist Not Found with id: " + artist.getId());
+            throw new EntityNotFoundException("Artist Not Found with id: " + id);
         }
         return true;
     }

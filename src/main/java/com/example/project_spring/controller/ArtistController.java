@@ -49,10 +49,10 @@ public class ArtistController {
         }
     }
 
-    @PutMapping(value = "/artist", consumes = "application/json", produces = "application/json")
-    public ResponseEntity updateArtist(@RequestBody Artist artist)
+    @PutMapping(value = "/artist/{id}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity updateArtist(@PathVariable("id") Integer id, @RequestBody Artist artist)
     {
-        Boolean updated = artistService.updateArtist(artist);
+        Boolean updated = artistService.updateArtist(id, artist);
         if(updated){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT) ;
         }
