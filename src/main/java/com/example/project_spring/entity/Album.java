@@ -1,5 +1,6 @@
 package com.example.project_spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -26,7 +27,11 @@ public class Album {
     @Column(name = "total_tracks", nullable = false)
     private Integer totalTracks;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "albums")
+    @JsonIgnore
+    private List<Artist> artists;
+
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH })
     @JoinColumn(name = "album_id")
     private List<Track> tracks;
 
@@ -78,11 +83,36 @@ public class Album {
         this.tracks = tracks;
     }
 
+    public List<Artist> getArtists() {
+        return artists;
+    }
+
+    public void setArtists(List<Artist> artists) {
+        this.artists = artists;
+    }
+
     public void add(Track track){
         if(tracks == null){
             tracks = new ArrayList<>();
         }
 
         tracks.add(track);
+    }
+
+    public void addArtist(Artist artist){
+        if(artists == null){
+            artists = new ArrayList<>();
+        }
+
+        artists.add(artist);
+        artist.getAlbums().add(this);
+    }
+
+    public void removeArtist(Artist artist){
+        if(artists == null){
+            artists = new ArrayList<>();
+        }
+
+        artists.remove(artist);
     }
 }

@@ -2,6 +2,7 @@ package com.example.project_spring.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class Artist {
     @JoinTable(name = "artist_genre", joinColumns = @JoinColumn(name = "artist_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private List<Genre> genres;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH }, fetch = FetchType.EAGER)
     @JoinTable(name = "artist_album", joinColumns = @JoinColumn(name = "artist_id"), inverseJoinColumns = @JoinColumn(name = "album_id"))
     private List<Album> albums;
 
@@ -53,5 +54,22 @@ public class Artist {
 
     public void setAlbums(List<Album> albums) {
         this.albums = albums;
+    }
+
+    public void add(Album album){
+        if(albums == null){
+            albums = new ArrayList<>();
+        }
+
+        albums.add(album);
+        album.getArtists().add(this);
+    }
+
+    public void removeAlbum(Album album){
+        if(albums == null){
+            albums = new ArrayList<>();
+        }
+
+        albums.remove(album);
     }
 }

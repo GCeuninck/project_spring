@@ -11,5 +11,7 @@ import java.util.Optional;
 public interface AlbumRepository extends JpaRepository<Album, Integer> {
 
     Optional<Album> findById(Integer integer);
+    Optional<Album> findByName(String name);
+
     List<Album> findAll();
 }

@@ -32,24 +32,40 @@ public class AlbumController {
     @PostMapping(value = "/album", consumes = "application/json", produces = "application/json")
     public ResponseEntity addAlbum(@RequestBody Album album)
     {
-        Boolean created = albumService.addAlbum(album);
-        if(created){
-            return new ResponseEntity<>(HttpStatus.CREATED) ;
+        Integer idCreated = albumService.addAlbum(album);
+        if(idCreated != null){
+            return new ResponseEntity<>("Album created with id: " + idCreated, HttpStatus.CREATED) ;
         }
+        // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
         else{
             return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PutMapping(value = "/album", consumes = "application/json", produces = "application/json")
-    public ResponseEntity updateAlbum(@RequestBody Album album)
+    @PutMapping(value = "/album/{id}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity updateAlbum(@PathVariable("id") Integer id, @RequestBody Album album)
     {
-        Boolean updated = albumService.addAlbum(album);
+        Boolean updated = albumService.updateAlbum(id, album);
         if(updated){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT) ;
+            return new ResponseEntity<>("Album updated with id: " + id, HttpStatus.OK) ;
         }
+        // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
         else{
             return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @DeleteMapping(value = "/album/{id}", produces = "application/json")
+    public ResponseEntity deleteAlbum(@PathVariable("id") Integer id)
+    {
+        Boolean deleted = albumService.deleteAlbum(id);
+        if(deleted){
+            return new ResponseEntity<>("Album deleted with id: " + id, HttpStatus.OK) ;
+        }
+        // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
+        else{
+            return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
