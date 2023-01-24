@@ -32,15 +32,17 @@ public class ArtistService {
         return artists != null && !artists.isEmpty();
     }
 
-    public Boolean addArtist(Artist artist){
+    public Integer addArtist(Artist artist){
+        Integer id = null;
         if(!artistRepository.existsByName(artist.getName())){
             artist.setId(0);
-            artistRepository.save(artist);
+            Artist created = artistRepository.save(artist);
+            if (created != null) id = created.getId();
         }
         else{
             throw new EntityExistsException("Artist already exists with name: " + artist.getName());
         }
-        return true;
+        return id;
     }
 
     public Boolean updateArtist(Integer id, Artist artist){

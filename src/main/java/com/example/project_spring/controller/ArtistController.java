@@ -30,18 +30,18 @@ public class ArtistController {
     }
 
     @GetMapping(value = "/artist/{artist}/album/{album}", produces = "application/json")
-    public ResponseEntity<Boolean> getArtist(@PathVariable("artist") String artist, @PathVariable("album") String album)
+    public ResponseEntity<String> getArtist(@PathVariable("artist") String artist, @PathVariable("album") String album)
     {
         Boolean ok = artistService.isAlbumFromArtist(album, artist);
-        return new ResponseEntity<>(ok, HttpStatus.OK) ;
+        return new ResponseEntity<>("Artiste présente l'album: " + ok, HttpStatus.OK) ;
     }
 
     @PostMapping(value = "/artist", consumes = "application/json", produces = "application/json")
     public ResponseEntity addArtist(@RequestBody Artist artist)
     {
-        Boolean created = artistService.addArtist(artist);
-        if(created){
-            return new ResponseEntity<>(HttpStatus.CREATED) ;
+        Integer idCreated = artistService.addArtist(artist);
+        if(idCreated != null){
+            return new ResponseEntity<>("Artist created with id: " + idCreated, HttpStatus.CREATED) ;
         }
         // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
         else{
@@ -54,7 +54,7 @@ public class ArtistController {
     {
         Boolean updated = artistService.updateArtist(id, artist);
         if(updated){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT) ;
+            return new ResponseEntity<>("Artist updated with id: " + id, HttpStatus.OK) ;
         }
         // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
         else{
@@ -67,7 +67,7 @@ public class ArtistController {
     {
         Boolean deleted = artistService.deleteArtist(id);
         if(deleted){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT) ;
+            return new ResponseEntity<>("Artist deleted with id: " + id, HttpStatus.OK) ;
         }
         // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
         else{
