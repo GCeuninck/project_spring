@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ArtistService {
@@ -47,7 +48,8 @@ public class ArtistService {
 
     public Boolean updateArtist(Integer id, Artist artist){
         if(artistRepository.existsById(id)){
-            if(!artistRepository.existsByName(artist.getName())){
+            Optional<Artist> found = artistRepository.findByName(artist.getName());
+            if(found.isEmpty() || (!found.isEmpty() && found.get().getId().equals(id))){
                 artist.setId(id);
                 artistRepository.save(artist);
             }
