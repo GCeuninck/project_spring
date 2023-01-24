@@ -54,4 +54,9 @@ public class TrackService {
         }
         return true;
     }
+
+    public Boolean deleteTracks(){
+        trackRepository.deleteAll();
+        return true;
+    }
 }

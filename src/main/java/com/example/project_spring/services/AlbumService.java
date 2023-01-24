@@ -67,4 +67,19 @@ public class AlbumService {
         }
         return true;
     }
+
+    public Boolean deleteAlbums(){
+        List<Album> albums = albumRepository.findAll();
+        // Delete artists references
+        albums.forEach(album -> {
+            List<Artist> artists = album.getArtists();
+            artists.forEach(artist -> {
+                artist.removeAlbum(album);
+                artistRepository.save(artist);
+            });
+        });
+
+        albumRepository.deleteAll();
+        return true;
+    }
 }

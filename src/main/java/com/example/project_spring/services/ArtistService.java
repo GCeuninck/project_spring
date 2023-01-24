@@ -72,4 +72,9 @@ public class ArtistService {
         }
         return true;
     }
+
+    public Boolean deleteArtists(){
+        artistRepository.deleteAll();
+        return true;
+    }
 }

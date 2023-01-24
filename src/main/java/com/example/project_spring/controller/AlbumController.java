@@ -68,4 +68,16 @@ public class AlbumController {
         }
     }
 
+    @DeleteMapping(value = "/albums", produces = "application/json")
+    public ResponseEntity deleteAlbums()
+    {
+        Boolean deleted = albumService.deleteAlbums();
+        if(deleted){
+            return new ResponseEntity<>("Albums deleted", HttpStatus.OK) ;
+        }
+        // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
+        else{
+            return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
+        }
+    }
 }

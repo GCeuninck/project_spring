@@ -74,4 +74,17 @@ public class ArtistController {
             return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @DeleteMapping(value = "/artists", produces = "application/json")
+    public ResponseEntity deleteArtists()
+    {
+        Boolean deleted = artistService.deleteArtists();
+        if(deleted){
+            return new ResponseEntity<>("Artists deleted", HttpStatus.OK) ;
+        }
+        // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
+        else{
+            return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
+        }
+    }
 }

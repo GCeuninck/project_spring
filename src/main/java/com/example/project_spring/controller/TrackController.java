@@ -68,4 +68,17 @@ public class TrackController {
         }
     }
 
+    @DeleteMapping(value = "/tracks", produces = "application/json")
+    public ResponseEntity deleteTracks()
+    {
+        Boolean deleted = trackService.deleteTracks();
+        if(deleted){
+            return new ResponseEntity<>("Tracks deleted", HttpStatus.OK) ;
+        }
+        // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
+        else{
+            return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
