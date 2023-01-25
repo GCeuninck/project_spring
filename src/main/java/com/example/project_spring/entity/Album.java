@@ -2,6 +2,8 @@ package com.example.project_spring.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -16,15 +18,19 @@ public class Album {
     private Integer id;
 
     @Column(nullable = false)
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @Column(nullable = false)
+    @NotBlank(message = "Type is mandatory")
     private String type;
 
     @Column(name = "release_date", nullable = false)
+    @NotNull(message = "Release Date is mandatory")
     private Date releaseDate;
 
     @Column(name = "total_tracks", nullable = false)
+    @NotNull(message = "Total Tracks is mandatory")
     private Integer totalTracks;
 
     @ManyToMany(mappedBy = "albums")

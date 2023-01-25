@@ -2,6 +2,7 @@ package com.example.project_spring.controller;
 
 import com.example.project_spring.entity.Track;
 import com.example.project_spring.services.TrackService;
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,7 +59,7 @@ public class TrackController {
     // region PostMapping
 
     @PostMapping(value = "/track", consumes = "application/json", produces = "application/json")
-    public ResponseEntity addTrack(@RequestBody Track track)
+    public ResponseEntity addTrack(@Valid @RequestBody Track track)
     {
         Integer idCreated = trackService.addTrack(track);
         if(idCreated != null){
@@ -75,7 +76,7 @@ public class TrackController {
     // region PutMapping
 
     @PutMapping(value = "/track/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity updateTrack(@PathVariable("id") Integer id, @RequestBody Track track)
+    public ResponseEntity updateTrack(@PathVariable("id") Integer id, @Valid @RequestBody Track track)
     {
         Boolean updated = trackService.updateTrack(id, track);
         if(updated){

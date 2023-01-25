@@ -1,6 +1,8 @@
 package com.example.project_spring.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "track")
@@ -11,12 +13,15 @@ public class Track {
     private Integer id;
 
     @Column(name = "name", nullable = false)
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @Column(name = "duration_ms", nullable = false)
+    @NotNull(message = "Duration(ms) is mandatory")
     private Integer duration;
 
     @Column(name = "track_number", nullable = false)
+    @NotBlank(message = "Track Number is mandatory")
     private Integer trackNumber;
 
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH })

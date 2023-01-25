@@ -1,6 +1,7 @@
 package com.example.project_spring.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "genre")
@@ -11,6 +12,7 @@ public class Genre {
     private Integer id;
 
     @Column(unique = true, nullable = false)
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     // region Getter/Setter

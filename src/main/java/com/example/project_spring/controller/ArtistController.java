@@ -2,6 +2,7 @@ package com.example.project_spring.controller;
 
 import com.example.project_spring.entity.Artist;
 import com.example.project_spring.services.ArtistService;
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,7 +58,7 @@ public class ArtistController {
 
     // region PostMapping
     @PostMapping(value = "/artist", consumes = "application/json", produces = "application/json")
-    public ResponseEntity addArtist(@RequestBody Artist artist)
+    public ResponseEntity addArtist(@Valid @RequestBody Artist artist)
     {
         Integer idCreated = artistService.addArtist(artist);
         if(idCreated != null){
@@ -74,7 +75,7 @@ public class ArtistController {
     // region PutMapping
 
     @PutMapping(value = "/artist/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity updateArtist(@PathVariable("id") Integer id, @RequestBody Artist artist)
+    public ResponseEntity updateArtist(@PathVariable("id") Integer id, @Valid @RequestBody Artist artist)
     {
         Boolean updated = artistService.updateArtist(id, artist);
         if(updated){

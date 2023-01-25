@@ -1,6 +1,7 @@
 package com.example.project_spring.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class Artist {
     private Integer id;
 
     @Column(nullable = false)
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER)

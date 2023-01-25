@@ -2,6 +2,7 @@ package com.example.project_spring.controller;
 
 import com.example.project_spring.entity.Album;
 import com.example.project_spring.services.AlbumService;
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -86,7 +87,7 @@ public class AlbumController {
     // region PostMapping
 
     @PostMapping(value = "/album", consumes = "application/json", produces = "application/json")
-    public ResponseEntity addAlbum(@RequestBody Album album)
+    public ResponseEntity addAlbum(@Valid @RequestBody Album album)
     {
         Integer idCreated = albumService.addAlbum(album);
         if(idCreated != null){
@@ -102,7 +103,7 @@ public class AlbumController {
 
     // region PutMapping
     @PutMapping(value = "/album/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity updateAlbum(@PathVariable("id") Integer id, @RequestBody Album album)
+    public ResponseEntity updateAlbum(@PathVariable("id") Integer id, @Valid @RequestBody Album album)
     {
         Boolean updated = albumService.updateAlbum(id, album);
         if(updated){
