@@ -17,6 +17,8 @@ public class TrackController {
     @Autowired
     private TrackService trackService;
 
+    // region GetMapping
+
     @GetMapping(value = "/tracks", produces = "application/json")
     public ResponseEntity<List<Track>> getTracks(){
         List<Track> tracks = trackService.getTracks();
@@ -51,6 +53,10 @@ public class TrackController {
         return new ResponseEntity<>(tracksWithArtist, HttpStatus.OK) ;
     }
 
+    // endregion
+
+    // region PostMapping
+
     @PostMapping(value = "/track", consumes = "application/json", produces = "application/json")
     public ResponseEntity addTrack(@RequestBody Track track)
     {
@@ -64,6 +70,10 @@ public class TrackController {
         }
     }
 
+    // endregion
+
+    // region PutMapping
+
     @PutMapping(value = "/track/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity updateTrack(@PathVariable("id") Integer id, @RequestBody Track track)
     {
@@ -76,6 +86,10 @@ public class TrackController {
             return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
         }
     }
+
+    // endregion
+
+    // region DeleteMapping
 
     @DeleteMapping(value = "/track/{id}", produces = "application/json")
     public ResponseEntity deleteTrack(@PathVariable("id") Integer id)
@@ -103,4 +117,5 @@ public class TrackController {
         }
     }
 
+    // endregion
 }

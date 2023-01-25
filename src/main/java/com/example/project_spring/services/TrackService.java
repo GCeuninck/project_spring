@@ -14,6 +14,8 @@ public class TrackService {
     @Autowired
     private TrackRepository trackRepository;
 
+    // region GetMethods
+
     public List<Track> getTracks(){
         return trackRepository.findAll();
     }
@@ -46,6 +48,10 @@ public class TrackService {
         return tracks;
     }
 
+    // endregion
+
+    // region AddMethods
+
     public Integer addTrack(Track track){
         Integer id = null;
         track.setId(0);
@@ -53,6 +59,10 @@ public class TrackService {
         if (created != null) id = created.getId();
         return id;
     }
+
+    // endregion
+
+    // region UpdateMethods
 
     public Boolean updateTrack(Integer id, Track track){
         if(trackRepository.existsById(id)){
@@ -64,6 +74,10 @@ public class TrackService {
         }
         return true;
     }
+
+    // endregion
+
+    // region DeleteMethods
 
     public Boolean deleteTrack(Integer id){
         if(trackRepository.existsById(id)){
@@ -79,4 +93,6 @@ public class TrackService {
         trackRepository.deleteAll();
         return true;
     }
+
+    // endregion
 }

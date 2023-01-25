@@ -13,6 +13,8 @@ public class Genre {
     @Column(unique = true, nullable = false)
     private String name;
 
+    // region Getter/Setter
+
     public Integer getId() {
         return id;
     }
@@ -28,4 +30,6 @@ public class Genre {
     public void setName(String name) {
         this.name = name;
     }
+
+    // endregion
 }

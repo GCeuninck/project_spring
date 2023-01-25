@@ -17,6 +17,8 @@ public class ArtistController {
     @Autowired
     private ArtistService artistService;
 
+    // region GetMapping
+
     @GetMapping(value = "/artists", produces = "application/json")
     public ResponseEntity<List<Artist>> getArtists(){
         List<Artist> artists = artistService.getArtists();
@@ -51,6 +53,9 @@ public class ArtistController {
         return new ResponseEntity<>(artistWithAlbum, HttpStatus.OK) ;
     }
 
+    // endregion
+
+    // region PostMapping
     @PostMapping(value = "/artist", consumes = "application/json", produces = "application/json")
     public ResponseEntity addArtist(@RequestBody Artist artist)
     {
@@ -64,6 +69,10 @@ public class ArtistController {
         }
     }
 
+    // endregion
+
+    // region PutMapping
+
     @PutMapping(value = "/artist/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity updateArtist(@PathVariable("id") Integer id, @RequestBody Artist artist)
     {
@@ -76,6 +85,10 @@ public class ArtistController {
             return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
         }
     }
+
+    // endregion
+
+    // region DeleteMapping
 
     @DeleteMapping(value = "/artist/{id}", produces = "application/json")
     public ResponseEntity deleteArtist(@PathVariable("id") Integer id)
@@ -102,4 +115,6 @@ public class ArtistController {
             return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
         }
     }
+
+    // endregion
 }

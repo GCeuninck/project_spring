@@ -24,6 +24,8 @@ public class Artist {
     @JoinTable(name = "artist_album", joinColumns = @JoinColumn(name = "artist_id"), inverseJoinColumns = @JoinColumn(name = "album_id"))
     private List<Album> albums;
 
+    // region Getter/Setter
+
     public Integer getId() {
         return id;
     }
@@ -56,6 +58,10 @@ public class Artist {
         this.albums = albums;
     }
 
+    // endregion
+
+    // region Methods
+
     public void add(Album album){
         if(albums == null){
             albums = new ArrayList<>();
@@ -72,4 +78,6 @@ public class Artist {
 
         albums.remove(album);
     }
+
+    // endregion
 }

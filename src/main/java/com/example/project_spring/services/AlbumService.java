@@ -20,6 +20,8 @@ public class AlbumService {
     @Autowired
     private ArtistRepository artistRepository;
 
+    // region GetMethods
+
     public List<Album> getAlbums(){
         return albumRepository.findAll();
     }
@@ -84,6 +86,10 @@ public class AlbumService {
         return albums;
     }
 
+    // endregion
+
+    // region AddMethods
+
     public Integer addAlbum(Album album){
         Integer id = null;
         album.setId(0);
@@ -91,6 +97,10 @@ public class AlbumService {
         if (created != null) id = created.getId();
         return id;
     }
+
+    // endregion
+
+    // region UpdateMethods
 
     public Boolean updateAlbum(Integer id, Album album){
         if(albumRepository.existsById(id)){
@@ -102,6 +112,10 @@ public class AlbumService {
         }
         return true;
     }
+
+    // endregion
+
+    // region DeleteMethods
 
     public Boolean deleteAlbum(Integer id){
         if(albumRepository.existsById(id)){
@@ -135,4 +149,6 @@ public class AlbumService {
         albumRepository.deleteAll();
         return true;
     }
+
+    // endregion
 }

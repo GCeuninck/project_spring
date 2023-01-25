@@ -16,6 +16,8 @@ public class ArtistService {
     @Autowired
     private ArtistRepository artistRepository;
 
+    // region GetMethods
+
     public List<Artist> getArtists(){
         return artistRepository.findAll();
     }
@@ -44,6 +46,10 @@ public class ArtistService {
         return artists;
     }
 
+    // endregion
+
+    // region AddMethods
+
     public Integer addArtist(Artist artist){
         Integer id = null;
         if(!artistRepository.existsByName(artist.getName())){
@@ -56,6 +62,10 @@ public class ArtistService {
         }
         return id;
     }
+
+    // endregion
+
+    // region UpdateMethods
 
     public Boolean updateArtist(Integer id, Artist artist){
         if(artistRepository.existsById(id)){
@@ -74,6 +84,10 @@ public class ArtistService {
         return true;
     }
 
+    // endregion
+
+    // region DeleteMethods
+
     public Boolean deleteArtist(Integer id){
         if(artistRepository.existsById(id)){
             artistRepository.deleteById(id);
@@ -88,4 +102,6 @@ public class ArtistService {
         artistRepository.deleteAll();
         return true;
     }
+
+    // endregion
 }

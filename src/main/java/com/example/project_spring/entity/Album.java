@@ -35,6 +35,8 @@ public class Album {
     @JoinColumn(name = "album_id")
     private List<Track> tracks;
 
+    // region Getter/Setter
+
     public Integer getId() {
         return id;
     }
@@ -91,6 +93,10 @@ public class Album {
         this.artists = artists;
     }
 
+    // endregion
+
+    // region Methods
+
     public void add(Track track){
         if(tracks == null){
             tracks = new ArrayList<>();
@@ -115,4 +121,6 @@ public class Album {
 
         artists.remove(artist);
     }
+
+    // endregion
 }

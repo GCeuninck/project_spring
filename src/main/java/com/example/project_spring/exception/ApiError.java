@@ -35,6 +35,8 @@ public class ApiError {
         this.debugMessage = ex.getLocalizedMessage();
     }
 
+    // region Getter/Setter
+
     public HttpStatus getStatus() {
         return status;
     }
@@ -66,5 +68,7 @@ public class ApiError {
     public void setDebugMessage(String debugMessage) {
         this.debugMessage = debugMessage;
     }
+
+    // endregion
 }
 

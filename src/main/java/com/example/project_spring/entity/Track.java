@@ -23,6 +23,8 @@ public class Track {
     @JoinColumn(name = "album_id")
     private Album album;
 
+    // region Getter/Setter
+
     public Integer getId() {
         return id;
     }
@@ -54,4 +56,6 @@ public class Track {
     public void setTrackNumber(Integer trackNumber) {
         this.trackNumber = trackNumber;
     }
+
+    // endregion
 }

@@ -18,6 +18,7 @@ public class AlbumController {
     @Autowired
     private AlbumService albumService;
 
+    // region GetMapping
     @GetMapping(value = "/albums", produces = "application/json")
     public ResponseEntity<List<Album>> getAlbums(){
         List<Album> albums = albumService.getAlbums();
@@ -80,6 +81,10 @@ public class AlbumController {
         return new ResponseEntity<>(albumWithArtist, HttpStatus.OK) ;
     }
 
+    // endregion
+
+    // region PostMapping
+
     @PostMapping(value = "/album", consumes = "application/json", produces = "application/json")
     public ResponseEntity addAlbum(@RequestBody Album album)
     {
@@ -93,6 +98,9 @@ public class AlbumController {
         }
     }
 
+    // endregion
+
+    // region PutMapping
     @PutMapping(value = "/album/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity updateAlbum(@PathVariable("id") Integer id, @RequestBody Album album)
     {
@@ -106,6 +114,9 @@ public class AlbumController {
         }
     }
 
+    // endregion
+
+    // region DeleteMapping
     @DeleteMapping(value = "/album/{id}", produces = "application/json")
     public ResponseEntity deleteAlbum(@PathVariable("id") Integer id)
     {
@@ -131,4 +142,6 @@ public class AlbumController {
             return new ResponseEntity<>("Invalid request", HttpStatus.BAD_REQUEST);
         }
     }
+
+    // endregion
 }
