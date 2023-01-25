@@ -28,8 +28,12 @@ public class AlbumService {
         return albumRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Album Not Found with id: " + id));
     }
 
-    public Album getAlbum(String name){
-        return albumRepository.findByName(name).orElseThrow(() -> new EntityNotFoundException("Album Not Found with name: " + name));
+    public List<Album> getAlbums(String name){
+        List<Album> albums = albumRepository.findAllByName(name);
+        if(albums == null || albums.isEmpty()){
+            throw new EntityNotFoundException("Album Not Found with name: " + name);
+        }
+        return albums;
     }
 
     public List<Album> getAlbums(Date date){

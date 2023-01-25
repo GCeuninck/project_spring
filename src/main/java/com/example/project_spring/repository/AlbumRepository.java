@@ -22,7 +22,7 @@ public interface AlbumRepository extends JpaRepository<Album, Integer> {
     List<Album> findByArtistName(@Param("artist_name") String artistName);
 
     Optional<Album> findById(Integer integer);
-    Optional<Album> findByName(String name);
+    List<Album> findAllByName(String name);
     List<Album> findByReleaseDate(Date date);
     List<Album> findByReleaseDateAfter(Date date);
     List<Album> findByReleaseDateBefore(Date date);

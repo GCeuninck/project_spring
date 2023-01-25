@@ -2,6 +2,7 @@ package com.example.project_spring.controller;
 
 import com.example.project_spring.entity.Track;
 import com.example.project_spring.services.TrackService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +23,32 @@ public class TrackController {
         return new ResponseEntity<>(tracks, HttpStatus.OK) ;
     }
 
+    @GetMapping(value = "/track", produces = "application/json")
+    public ResponseEntity getTracks(@PathParam("name") String name)
+    {
+        List<Track> tracks = trackService.getTracks(name);
+        return new ResponseEntity<>(tracks, HttpStatus.OK) ;
+    }
+
     @GetMapping(value = "/track/{id}", produces = "application/json")
     public ResponseEntity<Track> getTracks(@PathVariable("id") Integer id)
     {
         Track track = trackService.getTrack(id);
         return new ResponseEntity<>(track, HttpStatus.OK) ;
+    }
+
+    @GetMapping(value = "/tracks/album/{album}", produces = "application/json")
+    public ResponseEntity getTracksWithAlbum(@PathVariable("album") String album)
+    {
+        List<Track> tracksWithAlbum = trackService.getTracksWithAlbum(album);
+        return new ResponseEntity<>(tracksWithAlbum, HttpStatus.OK) ;
+    }
+
+    @GetMapping(value = "/tracks/artist/{artist}", produces = "application/json")
+    public ResponseEntity getTracksWithArtist(@PathVariable("artist") String artist)
+    {
+        List<Track> tracksWithArtist = trackService.getTracksWithArtist(artist);
+        return new ResponseEntity<>(tracksWithArtist, HttpStatus.OK) ;
     }
 
     @PostMapping(value = "/track", consumes = "application/json", produces = "application/json")

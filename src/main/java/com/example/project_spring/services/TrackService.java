@@ -22,8 +22,28 @@ public class TrackService {
         return trackRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Track Not Found with id: " + id));
     }
 
-    public Track getTrack(String name){
-        return trackRepository.findByName(name).orElseThrow(() -> new EntityNotFoundException("Track Not Found with name: " + name));
+    public List<Track> getTracks(String name){
+        List<Track> tracks = trackRepository.findAllByName(name);
+        if(tracks == null || tracks.isEmpty()){
+            throw new EntityNotFoundException("Track Not Found with name: " + name);
+        }
+        return tracks;
+    }
+
+    public List<Track> getTracksWithAlbum(String albumName){
+        List<Track> tracks = trackRepository.findByAlbumName(albumName);
+        if(tracks == null || tracks.isEmpty()){
+            throw new EntityNotFoundException("Track Not Found with album: " + albumName);
+        }
+        return tracks;
+    }
+
+    public List<Track> getTracksWithArtist(String artistName){
+        List<Track> tracks = trackRepository.findByArtistName(artistName);
+        if(tracks == null || tracks.isEmpty()){
+            throw new EntityNotFoundException("Track Not Found with artist: " + artistName);
+        }
+        return tracks;
     }
 
     public Integer addTrack(Track track){

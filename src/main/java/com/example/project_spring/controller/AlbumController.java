@@ -32,10 +32,10 @@ public class AlbumController {
     }
 
     @GetMapping(value = "/album", produces = "application/json")
-    public ResponseEntity<Album> getAlbum(@PathParam("name") String name)
+    public ResponseEntity getAlbums(@PathParam("name") String name)
     {
-        Album album = albumService.getAlbum(name);
-        return new ResponseEntity<>(album, HttpStatus.OK) ;
+        List<Album> albums = albumService.getAlbums(name);
+        return new ResponseEntity<>(albums, HttpStatus.OK) ;
     }
 
     @GetMapping(value = "/album/date/{date}", produces = "application/json")

@@ -19,6 +19,10 @@ public class Track {
     @Column(name = "track_number", nullable = false)
     private Integer trackNumber;
 
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH })
+    @JoinColumn(name = "album_id")
+    private Album album;
+
     public Integer getId() {
         return id;
     }
