@@ -21,7 +21,7 @@ public class Track {
     private Integer duration;
 
     @Column(name = "track_number", nullable = false)
-    @NotBlank(message = "Track Number is mandatory")
+    @NotNull(message = "Track Number is mandatory")
     private Integer trackNumber;
 
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH })
