@@ -2,6 +2,7 @@ package com.example.project_spring.controller;
 
 import com.example.project_spring.entity.Artist;
 import com.example.project_spring.services.ArtistService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,11 +30,25 @@ public class ArtistController {
         return new ResponseEntity<>(artist, HttpStatus.OK) ;
     }
 
-    @GetMapping(value = "/artist/{artist}/album/{album}", produces = "application/json")
-    public ResponseEntity<String> getArtist(@PathVariable("artist") String artist, @PathVariable("album") String album)
+    @GetMapping(value = "/artist", produces = "application/json")
+    public ResponseEntity<Artist> getArtist(@PathParam("name") String name)
     {
-        Boolean ok = artistService.isAlbumFromArtist(album, artist);
-        return new ResponseEntity<>("Artiste présente l'album: " + ok, HttpStatus.OK) ;
+        Artist artist = artistService.getArtist(name);
+        return new ResponseEntity<>(artist, HttpStatus.OK) ;
+    }
+
+    @GetMapping(value = "/artist/{artist}/album/{album}", produces = "application/json")
+    public ResponseEntity getArtist(@PathVariable("artist") String artist, @PathVariable("album") String album)
+    {
+        List<Artist> artistWithAlbum = artistService.getArtistWithAlbum(album, artist);
+        return new ResponseEntity<>(artistWithAlbum, HttpStatus.OK) ;
+    }
+
+    @GetMapping(value = "/artist/album/{album}", produces = "application/json")
+    public ResponseEntity getArtistWithAlbum(@PathVariable("album") String album)
+    {
+        List<Artist> artistWithAlbum = artistService.getArtistWithAlbum(album);
+        return new ResponseEntity<>(artistWithAlbum, HttpStatus.OK) ;
     }
 
     @PostMapping(value = "/artist", consumes = "application/json", produces = "application/json")

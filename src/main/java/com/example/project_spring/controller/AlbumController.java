@@ -2,11 +2,13 @@ package com.example.project_spring.controller;
 
 import com.example.project_spring.entity.Album;
 import com.example.project_spring.services.AlbumService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -27,6 +29,55 @@ public class AlbumController {
     {
         Album album = albumService.getAlbum(id);
         return new ResponseEntity<>(album, HttpStatus.OK) ;
+    }
+
+    @GetMapping(value = "/album", produces = "application/json")
+    public ResponseEntity<Album> getAlbum(@PathParam("name") String name)
+    {
+        Album album = albumService.getAlbum(name);
+        return new ResponseEntity<>(album, HttpStatus.OK) ;
+    }
+
+    @GetMapping(value = "/album/date/{date}", produces = "application/json")
+    public ResponseEntity getAlbumsByDate(@PathVariable("date") Date date)
+    {
+        List<Album> albums = albumService.getAlbums(date);
+        return new ResponseEntity<>(albums, HttpStatus.OK) ;
+    }
+
+    @GetMapping(value = "/album/start_date/{date}", produces = "application/json")
+    public ResponseEntity getAlbumsByStartDate(@PathVariable("date") Date date)
+    {
+        List<Album> albums = albumService.getAlbumsByStartDate(date);
+        return new ResponseEntity<>(albums, HttpStatus.OK) ;
+    }
+
+    @GetMapping(value = "/album/end_date/{date}", produces = "application/json")
+    public ResponseEntity getAlbumsByEndDate(@PathVariable("date") Date date)
+    {
+        List<Album> albums = albumService.getAlbumsByEndDate(date);
+        return new ResponseEntity<>(albums, HttpStatus.OK) ;
+    }
+
+    @GetMapping(value = "/album/date/{startDate}/{endDate}", produces = "application/json")
+    public ResponseEntity getAlbumsByDate(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate)
+    {
+        List<Album> albums = albumService.getAlbums(startDate, endDate);
+        return new ResponseEntity<>(albums, HttpStatus.OK) ;
+    }
+
+    @GetMapping(value = "/album/{album}/artist/{artist}", produces = "application/json")
+    public ResponseEntity getAlbum(@PathVariable("album") String album, @PathVariable("artist") String artist)
+    {
+        List<Album> albumWithArtist = albumService.getAlbumWithArtist(album, artist);
+        return new ResponseEntity<>(albumWithArtist, HttpStatus.OK) ;
+    }
+
+    @GetMapping(value = "/album/artist/{artist}", produces = "application/json")
+    public ResponseEntity getAlbumWithArtist(@PathVariable("artist") String artist)
+    {
+        List<Album> albumWithArtist = albumService.getAlbumWithArtist(artist);
+        return new ResponseEntity<>(albumWithArtist, HttpStatus.OK) ;
     }
 
     @PostMapping(value = "/album", consumes = "application/json", produces = "application/json")

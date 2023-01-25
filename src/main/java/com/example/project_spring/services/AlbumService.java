@@ -8,6 +8,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -29,6 +30,54 @@ public class AlbumService {
 
     public Album getAlbum(String name){
         return albumRepository.findByName(name).orElseThrow(() -> new EntityNotFoundException("Album Not Found with name: " + name));
+    }
+
+    public List<Album> getAlbums(Date date){
+        List<Album> albums = albumRepository.findByReleaseDate(date);
+        if(albums == null || albums.isEmpty()){
+            throw new EntityNotFoundException("Album Not Found with date: " + date.toString());
+        }
+        return albums;
+    }
+
+    public List<Album> getAlbumsByStartDate(Date date){
+        List<Album> albums = albumRepository.findByReleaseDateAfter(date);
+        if(albums == null || albums.isEmpty()){
+            throw new EntityNotFoundException("Album Not Found with start date: " + date.toString());
+        }
+        return albums;
+    }
+
+    public List<Album> getAlbumsByEndDate(Date date){
+        List<Album> albums = albumRepository.findByReleaseDateBefore(date);
+        if(albums == null || albums.isEmpty()){
+            throw new EntityNotFoundException("Album Not Found with end date: " + date.toString());
+        }
+        return albums;
+    }
+
+    public List<Album> getAlbums(Date startDate, Date endDate){
+        List<Album> albums = albumRepository.findByReleaseDateBetween(startDate, endDate);
+        if(albums == null || albums.isEmpty()){
+            throw new EntityNotFoundException("Album Not Found between: " + startDate.toString() + " and: " + endDate.toString());
+        }
+        return albums;
+    }
+
+    public List<Album> getAlbumWithArtist(String albumName, String artistName){
+        List<Album> albums = albumRepository.findByAlbumNameAndArtistName(albumName, artistName);
+        if(albums == null || albums.isEmpty()){
+            throw new EntityNotFoundException("Album Not Found with name: " + albumName + " and artist: " + artistName);
+        }
+        return albums;
+    }
+
+    public List<Album> getAlbumWithArtist(String artistName){
+        List<Album> albums = albumRepository.findByArtistName(artistName);
+        if(albums == null || albums.isEmpty()){
+            throw new EntityNotFoundException("Album Not Found with artist: " + artistName);
+        }
+        return albums;
     }
 
     public Integer addAlbum(Album album){
