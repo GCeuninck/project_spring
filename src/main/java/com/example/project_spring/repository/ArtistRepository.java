@@ -15,6 +15,11 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer> {
     @Query("SELECT artist FROM Artist artist JOIN artist.albums album " +
             "WHERE album.name = :album_name and artist.name = :artist_name")
     List<Artist> findByAlbumNameAndArtistName(@Param("album_name") String albumName, @Param("artist_name") String artistName);
+
+    @Query("SELECT artist FROM Artist artist JOIN artist.albums album " +
+            "WHERE album.name = :album_name")
+    List<Artist> findByAlbumName(@Param("album_name") String albumName);
+
     Optional<Artist> findById(Integer integer);
     Optional<Artist> findByName(String name);
     Boolean existsByName(String name);

@@ -28,9 +28,20 @@ public class ArtistService {
         return artistRepository.findByName(name).orElseThrow(() -> new EntityNotFoundException("Artist Not Found with name: " + name));
     }
 
-    public Boolean isAlbumFromArtist(String albumName, String artistName){
+    public List<Artist> getArtistWithAlbum(String albumName, String artistName){
         List<Artist> artists = artistRepository.findByAlbumNameAndArtistName(albumName, artistName);
-        return artists != null && !artists.isEmpty();
+        if(artists == null || artists.isEmpty()){
+            throw new EntityNotFoundException("Artist Not Found with name: " + artistName + " and album: " + albumName);
+        }
+        return artists;
+    }
+
+    public List<Artist> getArtistWithAlbum(String albumName){
+        List<Artist> artists = artistRepository.findByAlbumName(albumName);
+        if(artists == null || artists.isEmpty()){
+            throw new EntityNotFoundException("Artist Not Found with album: " + albumName);
+        }
+        return artists;
     }
 
     public Integer addArtist(Artist artist){
