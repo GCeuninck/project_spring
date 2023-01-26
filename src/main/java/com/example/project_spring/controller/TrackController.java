@@ -63,7 +63,7 @@ public class TrackController {
     {
         Integer idCreated = trackService.addTrack(track);
         if(idCreated != null){
-            return new ResponseEntity<>("Track created with id: " + idCreated, HttpStatus.CREATED) ;
+            return new ResponseEntity<>(idCreated, HttpStatus.CREATED) ;
         }
         // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
         else{
@@ -80,7 +80,7 @@ public class TrackController {
     {
         Boolean updated = trackService.updateTrack(id, track);
         if(updated){
-            return new ResponseEntity<>("Track updated with id: " + id, HttpStatus.OK) ;
+            return new ResponseEntity<>(id, HttpStatus.OK) ;
         }
         // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
         else{

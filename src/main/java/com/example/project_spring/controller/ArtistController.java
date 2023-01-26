@@ -62,7 +62,7 @@ public class ArtistController {
     {
         Integer idCreated = artistService.addArtist(artist);
         if(idCreated != null){
-            return new ResponseEntity<>("Artist created with id: " + idCreated, HttpStatus.CREATED) ;
+            return new ResponseEntity<>(idCreated, HttpStatus.CREATED) ;
         }
         // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
         else{
@@ -79,7 +79,7 @@ public class ArtistController {
     {
         Boolean updated = artistService.updateArtist(id, artist);
         if(updated){
-            return new ResponseEntity<>("Artist updated with id: " + id, HttpStatus.OK) ;
+            return new ResponseEntity<>(id, HttpStatus.OK) ;
         }
         // Ne rentre pas dans le bloc en cas d'erreur, géré par ExceptionHandler
         else{
