@@ -1,4 +1,4 @@
-package com.example.project_spring.services;
+package com.example.project_spring.services.artist;
 
 import com.example.project_spring.entity.Artist;
 import com.example.project_spring.repository.ArtistRepository;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ArtistService {
+public class ArtistService implements IArtistService {
 
     @Autowired
     private ArtistRepository artistRepository;

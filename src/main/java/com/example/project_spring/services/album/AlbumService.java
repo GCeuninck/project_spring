@@ -1,4 +1,4 @@
-package com.example.project_spring.services;
+package com.example.project_spring.services.album;
 
 import com.example.project_spring.entity.Album;
 import com.example.project_spring.entity.Artist;
@@ -12,7 +12,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Service
-public class AlbumService {
+public class AlbumService implements IAlbumService {
 
     @Autowired
     private AlbumRepository albumRepository;

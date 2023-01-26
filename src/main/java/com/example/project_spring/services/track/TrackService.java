@@ -1,7 +1,8 @@
-package com.example.project_spring.services;
+package com.example.project_spring.services.track;
 
 import com.example.project_spring.entity.Track;
 import com.example.project_spring.repository.TrackRepository;
+import com.example.project_spring.services.track.ITrackService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TrackService {
+public class TrackService implements ITrackService {
 
     @Autowired
     private TrackRepository trackRepository;

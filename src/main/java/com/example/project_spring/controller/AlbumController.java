@@ -1,7 +1,7 @@
 package com.example.project_spring.controller;
 
 import com.example.project_spring.entity.Album;
-import com.example.project_spring.services.AlbumService;
+import com.example.project_spring.services.album.IAlbumService;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.List;
 public class AlbumController {
 
     @Autowired
-    private AlbumService albumService;
+    private IAlbumService albumService;
 
     // region GetMapping
     @GetMapping(value = "/albums", produces = "application/json")

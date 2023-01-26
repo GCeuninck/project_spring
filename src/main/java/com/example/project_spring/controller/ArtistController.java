@@ -1,7 +1,7 @@
 package com.example.project_spring.controller;
 
 import com.example.project_spring.entity.Artist;
-import com.example.project_spring.services.ArtistService;
+import com.example.project_spring.services.artist.IArtistService;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
 public class ArtistController {
 
     @Autowired
-    private ArtistService artistService;
+    private IArtistService artistService;
 
     // region GetMapping
 

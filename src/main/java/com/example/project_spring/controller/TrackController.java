@@ -1,7 +1,7 @@
 package com.example.project_spring.controller;
 
 import com.example.project_spring.entity.Track;
-import com.example.project_spring.services.TrackService;
+import com.example.project_spring.services.track.ITrackService;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
 public class TrackController {
 
     @Autowired
-    private TrackService trackService;
+    private ITrackService trackService;
 
     // region GetMapping
 
