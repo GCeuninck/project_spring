@@ -27,7 +27,7 @@ public class TrackController {
     }
 
     @GetMapping(value = "/track", produces = "application/json")
-    public ResponseEntity getTracks(@PathParam("name") String name)
+    public ResponseEntity<List<Track>> getTracks(@PathParam("name") String name)
     {
         List<Track> tracks = trackService.getTracks(name);
         return new ResponseEntity<>(tracks, HttpStatus.OK) ;
@@ -41,14 +41,14 @@ public class TrackController {
     }
 
     @GetMapping(value = "/tracks/album/{album}", produces = "application/json")
-    public ResponseEntity getTracksWithAlbum(@PathVariable("album") String album)
+    public ResponseEntity<List<Track>> getTracksWithAlbum(@PathVariable("album") String album)
     {
         List<Track> tracksWithAlbum = trackService.getTracksWithAlbum(album);
         return new ResponseEntity<>(tracksWithAlbum, HttpStatus.OK) ;
     }
 
     @GetMapping(value = "/tracks/artist/{artist}", produces = "application/json")
-    public ResponseEntity getTracksWithArtist(@PathVariable("artist") String artist)
+    public ResponseEntity<List<Track>> getTracksWithArtist(@PathVariable("artist") String artist)
     {
         List<Track> tracksWithArtist = trackService.getTracksWithArtist(artist);
         return new ResponseEntity<>(tracksWithArtist, HttpStatus.OK) ;
@@ -93,7 +93,7 @@ public class TrackController {
     // region DeleteMapping
 
     @DeleteMapping(value = "/track/{id}", produces = "application/json")
-    public ResponseEntity deleteTrack(@PathVariable("id") Integer id)
+    public ResponseEntity<String> deleteTrack(@PathVariable("id") Integer id)
     {
         Boolean deleted = trackService.deleteTrack(id);
         if(deleted){
@@ -106,7 +106,7 @@ public class TrackController {
     }
 
     @DeleteMapping(value = "/tracks", produces = "application/json")
-    public ResponseEntity deleteTracks()
+    public ResponseEntity<String> deleteTracks()
     {
         Boolean deleted = trackService.deleteTracks();
         if(deleted){

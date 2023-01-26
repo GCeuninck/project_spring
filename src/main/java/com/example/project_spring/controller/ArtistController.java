@@ -41,14 +41,14 @@ public class ArtistController {
     }
 
     @GetMapping(value = "/artist/{artist}/album/{album}", produces = "application/json")
-    public ResponseEntity getArtist(@PathVariable("artist") String artist, @PathVariable("album") String album)
+    public ResponseEntity<List<Artist>> getArtist(@PathVariable("artist") String artist, @PathVariable("album") String album)
     {
         List<Artist> artistWithAlbum = artistService.getArtistWithAlbum(album, artist);
         return new ResponseEntity<>(artistWithAlbum, HttpStatus.OK) ;
     }
 
     @GetMapping(value = "/artist/album/{album}", produces = "application/json")
-    public ResponseEntity getArtistWithAlbum(@PathVariable("album") String album)
+    public ResponseEntity<List<Artist>> getArtistWithAlbum(@PathVariable("album") String album)
     {
         List<Artist> artistWithAlbum = artistService.getArtistWithAlbum(album);
         return new ResponseEntity<>(artistWithAlbum, HttpStatus.OK) ;
@@ -92,7 +92,7 @@ public class ArtistController {
     // region DeleteMapping
 
     @DeleteMapping(value = "/artist/{id}", produces = "application/json")
-    public ResponseEntity deleteArtist(@PathVariable("id") Integer id)
+    public ResponseEntity<String> deleteArtist(@PathVariable("id") Integer id)
     {
         Boolean deleted = artistService.deleteArtist(id);
         if(deleted){
@@ -105,7 +105,7 @@ public class ArtistController {
     }
 
     @DeleteMapping(value = "/artists", produces = "application/json")
-    public ResponseEntity deleteArtists()
+    public ResponseEntity<String> deleteArtists()
     {
         Boolean deleted = artistService.deleteArtists();
         if(deleted){

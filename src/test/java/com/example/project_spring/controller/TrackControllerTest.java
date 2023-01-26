@@ -2,31 +2,12 @@ package com.example.project_spring.controller;
 
 import com.example.project_spring.ProjectSpringApplicationTests;
 import com.example.project_spring.entity.Track;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(MockitoExtension.class)
 public class TrackControllerTest extends ProjectSpringApplicationTests {
-
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
 
     @Test
     public void testFindTrack() throws Exception {
@@ -168,13 +149,5 @@ public class TrackControllerTest extends ProjectSpringApplicationTests {
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.message").value("Track Not Found with id: " + id))
                 .andReturn().getResponse().getContentAsString();
-    }
-
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }

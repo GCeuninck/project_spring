@@ -34,49 +34,49 @@ public class AlbumController {
     }
 
     @GetMapping(value = "/album", produces = "application/json")
-    public ResponseEntity getAlbums(@PathParam("name") String name)
+    public ResponseEntity<List<Album>> getAlbums(@PathParam("name") String name)
     {
         List<Album> albums = albumService.getAlbums(name);
         return new ResponseEntity<>(albums, HttpStatus.OK) ;
     }
 
     @GetMapping(value = "/album/date/{date}", produces = "application/json")
-    public ResponseEntity getAlbumsByDate(@PathVariable("date") Date date)
+    public ResponseEntity<List<Album>> getAlbumsByDate(@PathVariable("date") Date date)
     {
         List<Album> albums = albumService.getAlbums(date);
         return new ResponseEntity<>(albums, HttpStatus.OK) ;
     }
 
     @GetMapping(value = "/album/start_date/{date}", produces = "application/json")
-    public ResponseEntity getAlbumsByStartDate(@PathVariable("date") Date date)
+    public ResponseEntity<List<Album>> getAlbumsByStartDate(@PathVariable("date") Date date)
     {
         List<Album> albums = albumService.getAlbumsByStartDate(date);
         return new ResponseEntity<>(albums, HttpStatus.OK) ;
     }
 
     @GetMapping(value = "/album/end_date/{date}", produces = "application/json")
-    public ResponseEntity getAlbumsByEndDate(@PathVariable("date") Date date)
+    public ResponseEntity<List<Album>> getAlbumsByEndDate(@PathVariable("date") Date date)
     {
         List<Album> albums = albumService.getAlbumsByEndDate(date);
         return new ResponseEntity<>(albums, HttpStatus.OK) ;
     }
 
     @GetMapping(value = "/album/date/{startDate}/{endDate}", produces = "application/json")
-    public ResponseEntity getAlbumsByDate(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate)
+    public ResponseEntity<List<Album>> getAlbumsByDate(@PathVariable("startDate") Date startDate, @PathVariable("endDate") Date endDate)
     {
         List<Album> albums = albumService.getAlbums(startDate, endDate);
         return new ResponseEntity<>(albums, HttpStatus.OK) ;
     }
 
     @GetMapping(value = "/album/{album}/artist/{artist}", produces = "application/json")
-    public ResponseEntity getAlbum(@PathVariable("album") String album, @PathVariable("artist") String artist)
+    public ResponseEntity<List<Album>> getAlbum(@PathVariable("album") String album, @PathVariable("artist") String artist)
     {
         List<Album> albumWithArtist = albumService.getAlbumWithArtist(album, artist);
         return new ResponseEntity<>(albumWithArtist, HttpStatus.OK) ;
     }
 
     @GetMapping(value = "/album/artist/{artist}", produces = "application/json")
-    public ResponseEntity getAlbumWithArtist(@PathVariable("artist") String artist)
+    public ResponseEntity<List<Album>> getAlbumWithArtist(@PathVariable("artist") String artist)
     {
         List<Album> albumWithArtist = albumService.getAlbumWithArtist(artist);
         return new ResponseEntity<>(albumWithArtist, HttpStatus.OK) ;
@@ -119,7 +119,7 @@ public class AlbumController {
 
     // region DeleteMapping
     @DeleteMapping(value = "/album/{id}", produces = "application/json")
-    public ResponseEntity deleteAlbum(@PathVariable("id") Integer id)
+    public ResponseEntity<String> deleteAlbum(@PathVariable("id") Integer id)
     {
         Boolean deleted = albumService.deleteAlbum(id);
         if(deleted){
@@ -132,7 +132,7 @@ public class AlbumController {
     }
 
     @DeleteMapping(value = "/albums", produces = "application/json")
-    public ResponseEntity deleteAlbums()
+    public ResponseEntity<String> deleteAlbums()
     {
         Boolean deleted = albumService.deleteAlbums();
         if(deleted){

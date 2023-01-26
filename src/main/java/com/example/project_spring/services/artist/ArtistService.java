@@ -70,7 +70,7 @@ public class ArtistService implements IArtistService {
     public Boolean updateArtist(Integer id, Artist artist){
         if(artistRepository.existsById(id)){
             Optional<Artist> found = artistRepository.findByName(artist.getName());
-            if(found.isEmpty() || (!found.isEmpty() && found.get().getId().equals(id))){
+            if(found.isEmpty() || found.get().getId().equals(id)){
                 artist.setId(id);
                 artistRepository.save(artist);
             }

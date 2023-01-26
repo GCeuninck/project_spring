@@ -118,7 +118,7 @@ public class AlbumService implements IAlbumService {
     // region DeleteMethods
 
     public Boolean deleteAlbum(Integer id){
-        if(albumRepository.existsById(id)){
+        if(albumRepository.findById(id).isPresent()){
             Album album = albumRepository.findById(id).get();
             // Delete artists references
             List<Artist> artists = album.getArtists();
