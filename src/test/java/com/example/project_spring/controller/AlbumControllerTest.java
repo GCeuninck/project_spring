@@ -17,6 +17,8 @@ public class AlbumControllerTest extends ProjectSpringApplicationTests {
     @Test
     public void testFindAlbum() throws Exception {
 
+        // region Tracks Creation
+
         // Create Tracks
         Track track1 = new Track();
         track1.setName("Track 1");
@@ -59,7 +61,9 @@ public class AlbumControllerTest extends ProjectSpringApplicationTests {
             track2.setId(Integer.parseInt(idTrack2));
         }
 
-        // Create Album
+        // endregion
+
+        // region Album Creation
 
         Album album = new Album();
         album.setName("Get Album");
@@ -81,6 +85,8 @@ public class AlbumControllerTest extends ProjectSpringApplicationTests {
                 .andExpect(jsonPath("$").isNotEmpty())
                 .andReturn().getResponse().getContentAsString();
 
+        // endregion
+
         String response = mockMvc.perform(get("/project_spring/v1/album/" + id))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
@@ -95,6 +101,8 @@ public class AlbumControllerTest extends ProjectSpringApplicationTests {
 
     @Test
     public void testCreateAlbum() throws Exception {
+
+        // region Tracks Creation
 
         // Create Tracks
         Track track1 = new Track();
@@ -137,6 +145,8 @@ public class AlbumControllerTest extends ProjectSpringApplicationTests {
         else{
             track2.setId(Integer.parseInt(idTrack2));
         }
+
+        // endregion
 
         // Create Album
 
@@ -175,6 +185,8 @@ public class AlbumControllerTest extends ProjectSpringApplicationTests {
     @Test
     public void testUpdateAlbum() throws Exception {
 
+        // region Tracks Creation
+
         // Create Tracks
         Track track1 = new Track();
         track1.setName("Track 1");
@@ -217,7 +229,9 @@ public class AlbumControllerTest extends ProjectSpringApplicationTests {
             track2.setId(Integer.parseInt(idTrack2));
         }
 
-        // Create Album
+        // endregion
+
+        // region Album Creation
 
         Album album = new Album();
         album.setName("Update Album");
@@ -238,6 +252,8 @@ public class AlbumControllerTest extends ProjectSpringApplicationTests {
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$").isNotEmpty())
                 .andReturn().getResponse().getContentAsString();
+
+        // endregion
 
         if(!id.isEmpty()){
             Album albumModif = new Album();
@@ -269,12 +285,15 @@ public class AlbumControllerTest extends ProjectSpringApplicationTests {
                     .andReturn().getResponse().getContentAsString();
         }
         else{
-            throw new RuntimeException("Track not created for the test: Update Track");
+            throw new RuntimeException("Album not created for the test: Update Album");
         }
     }
 
     @Test
     public void testDeleteAlbum() throws Exception {
+
+        // region Tracks Creation
+
         // Create Tracks
         Track track1 = new Track();
         track1.setName("Track 1");
@@ -317,7 +336,9 @@ public class AlbumControllerTest extends ProjectSpringApplicationTests {
             track2.setId(Integer.parseInt(idTrack2));
         }
 
-        // Create Album
+        // endregion
+
+        // region Album Creation
 
         Album album = new Album();
         album.setName("Delete Album");
@@ -350,6 +371,8 @@ public class AlbumControllerTest extends ProjectSpringApplicationTests {
                 .andExpect(jsonPath("$.tracks").isNotEmpty())
                 .andReturn().getResponse().getContentAsString();
 
+        // endregion
+
         String deleteResponse = mockMvc.perform(delete("/project_spring/v1/album/" + id))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
@@ -361,5 +384,15 @@ public class AlbumControllerTest extends ProjectSpringApplicationTests {
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.message").value("Album Not Found with id: " + id))
                 .andReturn().getResponse().getContentAsString();
+
+        // region Delete All
+
+        String deleteAllResponse = mockMvc.perform(delete("/project_spring/v1/albums"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$").value("Albums deleted"))
+                .andReturn().getResponse().getContentAsString();
+
+        // endregion
     }
 }

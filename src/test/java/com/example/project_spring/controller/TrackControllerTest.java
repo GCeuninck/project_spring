@@ -12,6 +12,8 @@ public class TrackControllerTest extends ProjectSpringApplicationTests {
     @Test
     public void testFindTrack() throws Exception {
 
+        // region Track Creation
+
         Track track = new Track();
         track.setName("Track Get Track");
         track.setDuration(2);
@@ -25,6 +27,8 @@ public class TrackControllerTest extends ProjectSpringApplicationTests {
                 .andExpect(jsonPath("$").isNotEmpty())
                 .andReturn().getResponse().getContentAsString();
 
+        // endregion
+
         String response = mockMvc.perform(get("/project_spring/v1/track/" + id))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
@@ -37,6 +41,7 @@ public class TrackControllerTest extends ProjectSpringApplicationTests {
 
     @Test
     public void testCreateTrack() throws Exception {
+
         Track track = new Track();
         track.setName("Track Creation");
         track.setDuration(2);
@@ -63,6 +68,8 @@ public class TrackControllerTest extends ProjectSpringApplicationTests {
     @Test
     public void testUpdateTrack() throws Exception {
 
+        // region Track Creation
+
         Track track = new Track();
         track.setName("Track Update Track");
         track.setDuration(1);
@@ -84,6 +91,8 @@ public class TrackControllerTest extends ProjectSpringApplicationTests {
                 .andExpect(jsonPath("$.duration").value(track.getDuration()))
                 .andExpect(jsonPath("$.trackNumber").value(track.getTrackNumber()))
                 .andReturn().getResponse().getContentAsString();
+
+        // endregion
 
         if(!id.isEmpty()){
             Track trackModif = new Track();
@@ -116,6 +125,9 @@ public class TrackControllerTest extends ProjectSpringApplicationTests {
 
     @Test
     public void testDeleteTrack() throws Exception {
+
+        // region Track Creation
+
         Track track = new Track();
         track.setName("Track Delete");
         track.setDuration(2);
@@ -138,6 +150,8 @@ public class TrackControllerTest extends ProjectSpringApplicationTests {
                 .andExpect(jsonPath("$.trackNumber").value(track.getTrackNumber()))
                 .andReturn().getResponse().getContentAsString();
 
+        // endregion
+
         String deleteResponse = mockMvc.perform(delete("/project_spring/v1/track/" + id))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
@@ -149,5 +163,15 @@ public class TrackControllerTest extends ProjectSpringApplicationTests {
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.message").value("Track Not Found with id: " + id))
                 .andReturn().getResponse().getContentAsString();
+
+        // region Delete All
+
+        String deleteAllResponse = mockMvc.perform(delete("/project_spring/v1/tracks"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$").value("Tracks deleted"))
+                .andReturn().getResponse().getContentAsString();
+
+        // endregion
     }
 }
